@@ -21,5 +21,5 @@ https://huggingface.co/datasets/ai4bharat/IndicCorpV2
 ## Run
 
 ```bash
-python main.py
 $env:PYTHONUTF8="1"
+python main.py
