@@ -1,0 +1,2 @@
+dataset_name,total_sentences,total_words,total_chars,avg_sentence_length,avg_word_length,unique_types,ttr
+IndicCorpV2 — Hindi (hin_Deva),2865,62992,232533,21.9867,3.6915,10075,0.159941
