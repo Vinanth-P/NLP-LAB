@@ -2,7 +2,7 @@
 
 ## Dataset
 
-IndicCorpV2 (Hindi)
+IndicCorpV2 (Kannada)
 
 https://huggingface.co/datasets/ai4bharat/IndicCorpV2
 

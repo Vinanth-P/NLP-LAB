@@ -1,15 +1,16 @@
 import re
-from datasets import load_dataset
 
-# -------------------------------
+
+# ============================================================
 # Sentence Tokenizer
-# -------------------------------
+# ============================================================
 
 def sentence_tokenize(text):
     """
-    Splits paragraph into sentences.
-    Supports Hindi danda and English punctuation.
+    Splits text into sentences.
+    Supports Kannada/Indic danda and English punctuation.
     """
+
     text = text.strip()
 
     if not text:
@@ -20,21 +21,22 @@ def sentence_tokenize(text):
     return [s.strip() for s in sentences if s.strip()]
 
 
-# -------------------------------
+# ============================================================
 # Word Tokenizer
-# -------------------------------
+# ============================================================
 
 TOKEN_PATTERN = re.compile(
     r'''
-    https?://\S+                      | # URL
-    www\.\S+                          | # www URL
-    [\w\.-]+@[\w\.-]+\.\w+            | # Email
-    \d{1,2}[/-]\d{1,2}[/-]\d{2,4}     | # Dates
-    \d{4}[/-]\d{1,2}[/-]\d{1,2}       | # Dates
-    \d+\.\d+                          | # Decimal
-    \d+                               | # Integer
-    [^\W\d_]+                         | # Hindi/English words
-    [^\s]                               # Punctuation
+    https?://\S+                       | # URL
+    www\.\S+                           | # www URL
+    [\w\.-]+@[\w\.-]+\.\w+             | # Email
+    \d{1,2}[/-]\d{1,2}[/-]\d{2,4}      | # Date
+    \d{4}[/-]\d{1,2}[/-]\d{1,2}        | # Date
+    \d+\.\d+                           | # Decimal
+    \d+                                | # Integer
+    [\u0C80-\u0CFF]+                   | # Kannada word
+    [^\W\d_]+                          | # English word
+    [^\s]                              | # Punctuation
     ''',
     re.VERBOSE | re.UNICODE
 )
@@ -44,56 +46,60 @@ def word_tokenize(sentence):
     return TOKEN_PATTERN.findall(sentence)
 
 
-# -------------------------------
-# Main
-# -------------------------------
+# ============================================================
+# Files
+# ============================================================
 
-dataset = load_dataset(
-    "ai4bharat/IndicCorpV2",
-    name="indiccorp_v2",
-    split="hin_Deva",
-    streaming=True
-)
+INPUT_FILE = "original_kannada.txt"
+OUTPUT_FILE = "tokenized_kannada.txt"
 
-output_file = "tokenized_hindi.txt"
+
+# ============================================================
+# Statistics
+# ============================================================
 
 total_sentences = 0
 total_words = 0
 total_characters = 0
+
 unique_tokens = set()
 
-MAX_PARAGRAPHS = 10000
 
-with open(output_file, "w", encoding="utf-8") as fout:
+# ============================================================
+# Read downloaded data
+# ============================================================
 
-    for idx, example in enumerate(dataset):
+with open(INPUT_FILE, "r", encoding="utf-8") as fin, \
+     open(OUTPUT_FILE, "w", encoding="utf-8") as fout:
 
-        if idx >= MAX_PARAGRAPHS:
-            break
+    text = fin.read()
 
-        text = example["text"]
+    # Sentence tokenization
+    sentences = sentence_tokenize(text)
 
-        sentences = sentence_tokenize(text)
+    for sentence in sentences:
 
-        for sentence in sentences:
+        # Word tokenization
+        tokens = word_tokenize(sentence)
 
-            tokens = word_tokenize(sentence)
+        if not tokens:
+            continue
 
-            if len(tokens) == 0:
-                continue
+        # Save tokenized sentence
+        fout.write(" ".join(tokens) + "\n")
 
-            fout.write(" ".join(tokens) + "\n")
+        # Statistics
+        total_sentences += 1
+        total_words += len(tokens)
 
-            total_sentences += 1
-            total_words += len(tokens)
+        for token in tokens:
+            total_characters += len(token)
+            unique_tokens.add(token)
 
-            for token in tokens:
-                total_characters += len(token)
-                unique_tokens.add(token)
 
-# -------------------------------
-# Statistics
-# -------------------------------
+# ============================================================
+# Calculate Statistics
+# ============================================================
 
 avg_sentence_length = (
     total_words / total_sentences
@@ -110,9 +116,15 @@ ttr = (
     if total_words else 0
 )
 
-print("=" * 40)
-print("Corpus Statistics")
-print("=" * 40)
+
+# ============================================================
+# Print Statistics
+# ============================================================
+
+print("=" * 45)
+print("Kannada Corpus Statistics")
+print("=" * 45)
+
 print(f"Total Sentences      : {total_sentences}")
 print(f"Total Words          : {total_words}")
 print(f"Total Characters     : {total_characters}")
@@ -120,4 +132,8 @@ print(f"Average Sent Length  : {avg_sentence_length:.2f}")
 print(f"Average Word Length  : {avg_word_length:.2f}")
 print(f"Unique Tokens        : {len(unique_tokens)}")
 print(f"Type Token Ratio     : {ttr:.4f}")
-print("=" * 40)
+
+print("=" * 45)
+
+print(f"Original data : {INPUT_FILE}")
+print(f"Tokenized data: {OUTPUT_FILE}")
