@@ -4,7 +4,7 @@
 
 IndicCorpV2 (Kannada)
 
-https://huggingface.co/datasets/ai4bharat/IndicCorpV2
+<https://huggingface.co/datasets/ai4bharat/IndicCorpV2>
 
 ## Tasks
 

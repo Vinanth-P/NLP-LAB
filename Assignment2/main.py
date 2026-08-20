@@ -197,12 +197,16 @@ for case in test_cases:
     # --------------------------------------------------------
 
     greedy_prediction = greedy_segment(text)
+    print("greedy prediction:/n")
+    print(greedy_prediction)
 
     # --------------------------------------------------------
     # DP
     # --------------------------------------------------------
 
     dp_prediction = dp_segment(text)
+    print("dp prediction:/n")
+    print(dp_prediction)
 
     # --------------------------------------------------------
     # Word accuracy
