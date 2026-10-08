@@ -1,2 +1,19 @@
 original_kannada.txt
 tokenized_kannada.txt
+
+# Python bytecode and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Generated assignment outputs
+/Assignment3/brown_fst_diagram.png
+/Assignment3/brown_fst_output.txt
+/Assignment3/brown_morphological_fst.png
+/Assignment3/*.gv
+/Assignment3/english_dfa.gv.png
+/Assignment4/q1_output/
+/Assignment4/q2_output/
+/Assignment5/q3_output/
