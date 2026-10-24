@@ -16,4 +16,12 @@ env/
 /Assignment3/english_dfa.gv.png
 /Assignment4/q1_output/
 /Assignment4/q2_output/
-/Assignment5/q3_output/
+/Assignment5/q1_output/
+/Assignment6/q1_output/
+
+# Large assignment datasets and archives
+/Assignment-7/Hindi-POS-Data/
+/Assignment-7/*.zip
+/Assignment-8/data/
+/Assignment-8/*.zip
+/Assignment-8/*.pdf

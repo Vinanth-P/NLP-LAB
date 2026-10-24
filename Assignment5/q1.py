@@ -26,7 +26,7 @@ RANDOM_SEED = 42
 # Add-K value
 K = 0.3
 
-OUTPUT_DIR = "q3_output"
+OUTPUT_DIR = "q1_output"
 
 
 # ============================================================

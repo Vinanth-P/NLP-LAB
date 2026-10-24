@@ -1,0 +1,24 @@
+digraph Morphological_FST {
+	rankdir=LR
+	start [label="" shape=point]
+	q0 [label=Start shape=circle]
+	q_root [label="Root Lookup" shape=circle]
+	q_s [label="S Addition" shape=circle]
+	q_es [label="E Insertion" shape=circle]
+	q_ies [label="Y Replacement" shape=circle]
+	q_sg [label="Singular Accept" shape=doublecircle]
+	q_pl [label="Plural Accept" shape=doublecircle]
+	q_invalid [label=Reject shape=circle]
+	start -> q0
+	q0 -> q_root [label=root]
+	q_root -> q_sg [label="END / +N+SG"]
+	q_root -> q_s [label="+s"]
+	q_s -> q_pl [label="valid / +N+PL"]
+	q_root -> q_es [label="+es"]
+	q_es -> q_pl [label="valid / +N+PL"]
+	q_root -> q_ies [label="+ies"]
+	q_ies -> q_pl [label="valid / +N+PL"]
+	q_s -> q_invalid [label=invalid]
+	q_es -> q_invalid [label=invalid]
+	q_ies -> q_invalid [label=invalid]
+}
