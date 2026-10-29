@@ -4,6 +4,7 @@ tokenized_kannada.txt
 # Python bytecode and virtual environments
 __pycache__/
 *.py[cod]
+.ipynb_checkpoints/
 .venv/
 venv/
 env/
@@ -19,7 +20,13 @@ env/
 /Assignment5/q1_output/
 /Assignment6/q1_output/
 
-# Large assignment datasets and archives
+# Large assignment datasets and generated outputs
+/Assignment7/Hindi-POS-Data/
+/Assignment7/pos_tagger_outputs/
+/Assignment8/Spell-Correction/
+/Assignment9/Hindi-POS-Data/
+
+# Legacy assignment paths
 /Assignment-7/Hindi-POS-Data/
 /Assignment-7/*.zip
 /Assignment-8/data/
